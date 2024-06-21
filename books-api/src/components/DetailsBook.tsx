@@ -1,0 +1,67 @@
+import React from "react";
+import {
+  Box,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+} from "@mui/material";
+import { Book } from "../services/types";
+
+interface DetailsBookProps {
+  book: Book;
+}
+
+const DetailsBook: React.FC<DetailsBookProps> = ({ book }) => {
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={12} sm={5}>
+        <Card
+          sx={{ maxWidth: "99%", backgroundColor: "#f7f7f7", boxShadow: 0 }}
+        >
+          <CardMedia
+            component="img"
+            height="400"
+            image={book.image}
+            alt="Book Cover"
+          />
+        </Card>
+      </Grid>
+      <Grid item xs={12} sm={7}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+            textAlign: "left",
+            padding: "20px",
+          }}
+        >
+          <Typography variant="subtitle1" gutterBottom>
+            {book.genre.join(", ")}
+          </Typography>
+          <Typography
+            variant="h4"
+            gutterBottom
+            sx={{ padding: " 25px 0 0 0 " }}
+          >
+            {book.title}
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            gutterBottom
+            sx={{ color: "#a1a1a1" }}
+          >
+            {book.authors.join(", ")}
+          </Typography>
+          <Typography variant="body1" sx={{ mt: 2 }}>
+            {book.description}
+          </Typography>
+        </Box>
+      </Grid>
+    </Grid>
+  );
+};
+
+export default DetailsBook;
