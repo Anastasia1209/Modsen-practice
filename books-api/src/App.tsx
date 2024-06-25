@@ -1,21 +1,21 @@
-import React from "react";
-
+import React, { useState } from "react";
+import photo from "./assets/photo.png";
+import photo2 from "./assets/photo2.png";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
-//import Main from "./components/Main";
 import Header from "./components/Header";
-//import SearchForm from "./components/SearchForm";
 import BookCard from "./components/BookCard";
 import { Book } from "./services/types";
 import DetailsBook from "./components/DetailsBook";
 
 function App() {
-  const books: Book[] = [
+  const initialBooks = [
     {
       id: "1",
       title: "Book Title 1",
       genre: ["Fiction"],
       authors: ["Author 1", "Author 2"],
-      image: "/path/to/image1.jpg",
+      image: photo,
       description: "sssssssssssssssssssssss",
       date: "2023-01-01",
     },
@@ -24,7 +24,7 @@ function App() {
       title: "Book Title 2",
       genre: ["Fantasy"],
       authors: ["Author 3"],
-      image: "/path/to/image2.jpg",
+      image: photo,
       description: "sssssssssssssssssssssss",
       date: "2022-01-01",
     },
@@ -33,7 +33,7 @@ function App() {
       title: "Book Title 3",
       genre: ["Science", "Fiction"],
       authors: ["Author 4", "Auth4"],
-      image: "/path/to/image3.jpg",
+      image: photo2,
       description: "sssssssssssssssssssssss",
       date: "2023-01-01",
     },
@@ -56,11 +56,29 @@ function App() {
       date: "2021-01-01",
     },
   ];
+  const [books, setBooks] = useState<Book[]>(initialBooks);
 
+  const handleSearch = (query: string) => {
+    console.log(`Search query: ${query}`);
+
+    if (query.trim() === "") {
+      setBooks(initialBooks);
+    } else {
+      const filteredBooks = books.filter((book) =>
+        book.title.toLowerCase().includes(query.toLowerCase())
+      );
+
+      setBooks(filteredBooks);
+    }
+  };
   return (
     <div className="App">
-      <Header />
-      <BookCard book={books} />
+      <Header books={books} setBooks={setBooks} handleSearch={handleSearch} />
+      <Routes>
+        <Route path="/" element={<BookCard book={books} />} />
+        <Route path="/book/:id" element={<DetailsBook books={books} />} />
+      </Routes>
+      {/* <BookCard book={books} /> */}
       {/* <DetailsBook book={books[2]}></DetailsBook> */}
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   Button,
@@ -17,7 +17,7 @@ import {
 import { SelectOption } from "../services/types";
 
 interface SearchFormProps {
-  onSearch: (query: string, category: string, sort: string) => void;
+  onSearch: (query: string) => void;
 }
 
 const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
@@ -26,7 +26,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
   const [sort, setSort] = useState<string>("Relevance");
 
   const handleSearch = () => {
-    onSearch(query, category, sort);
+    onSearch(query);
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -43,16 +43,37 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyPress={handleKeyPress}
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 0,
+              backgroundColor: "white",
+              height: "35px",
+            },
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderRadius: 0,
+            },
+          }}
         />
         <Button
           variant="contained"
           onClick={handleSearch}
-          sx={{ height: "100%", padding: "8px 16px" }}
+          sx={{
+            backgroundColor: "#ccc",
+            color: "black",
+            borderRadius: 0,
+            boxShadow: 0,
+            "&:hover": {
+              backgroundColor: "#999",
+            },
+            height: "35px",
+
+            padding: "8px 10px",
+          }}
         >
           Search
         </Button>
       </Box>
-      <Box display="flex" gap={2}>
+      {/* <Box display="flex" gap={2}>
         <Box
           display="flex"
           alignItems="center"
@@ -91,8 +112,8 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
               ))}
             </Select>
           </FormControl>
-        </Box>
-      </Box>
+        </Box> 
+      </Box>*/}
     </Box>
   );
 };

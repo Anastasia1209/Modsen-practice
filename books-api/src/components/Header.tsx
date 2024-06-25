@@ -3,21 +3,25 @@ import SearchForm from "./SearchForm";
 import { Link } from "react-router-dom";
 import { Container, Box, Typography } from "@mui/material";
 import { Book } from "../services/types";
+interface HeaderProps {
+  books: Book[];
+  setBooks: React.Dispatch<React.SetStateAction<Book[]>>;
+  handleSearch: (query: string) => void;
+}
+const Header: React.FC<HeaderProps> = ({ books, setBooks, handleSearch }) => {
+  // const [books, setBooks] = useState<Book[]>([]);
+  // const [query, setQuery] = useState("");
 
-const Header: React.FC = () => {
-  const [books, setBooks] = useState<Book[]>([]);
+  // const handleSearch = () => {
+  //   console.log(`Search query: ${query}`);
 
-  const handleSearch = (query: string, category: string, sort: string) => {
-    console.log(`Search query: ${query}, Category: ${category}, Sort: ${sort}`);
-    const filteredBooks = books
-      //  .filter((book) => category === "all" || book.genre === category)
-      .sort((a, b) =>
-        sort === "newest"
-          ? new Date(b.date).getTime() - new Date(a.date).getTime()
-          : 0
-      );
-    setBooks(filteredBooks);
-  };
+  //   const filteredBooks = books.filter((book) =>
+  //     book.title.toLowerCase().includes(query.toLowerCase())
+  //   );
+
+  //   setBooks(filteredBooks);
+  // };
+
   return (
     <Container
       maxWidth="xl"
@@ -38,6 +42,7 @@ const Header: React.FC = () => {
           Search For Books
         </Typography>
       </Box>
+      {/* <SearchForm onSearch={() => {}} />{" "} */}
       <SearchForm onSearch={handleSearch} />
     </Container>
   );

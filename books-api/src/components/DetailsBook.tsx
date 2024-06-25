@@ -8,12 +8,18 @@ import {
   CardMedia,
 } from "@mui/material";
 import { Book } from "../services/types";
+import { useParams } from "react-router-dom";
 
 interface DetailsBookProps {
-  book: Book;
+  books: Book[];
 }
 
-const DetailsBook: React.FC<DetailsBookProps> = ({ book }) => {
+const DetailsBook: React.FC<DetailsBookProps> = ({ books }) => {
+  const { id } = useParams<{ id: string }>();
+  const book = books.find((book: Book) => book.id === id);
+  if (!book) {
+    return <Typography variant="h5">Book not found</Typography>;
+  }
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sm={5}>
@@ -22,9 +28,13 @@ const DetailsBook: React.FC<DetailsBookProps> = ({ book }) => {
         >
           <CardMedia
             component="img"
-            height="400"
+            height="500"
             image={book.image}
             alt="Book Cover"
+            sx={{
+              objectFit: "contain",
+              height: "500px",
+            }}
           />
         </Card>
       </Grid>

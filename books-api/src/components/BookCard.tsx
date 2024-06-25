@@ -24,9 +24,13 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
             >
               <CardMedia
                 component="img"
-                height="140"
+                height="300"
                 image={book.image}
                 alt="Book Image"
+                sx={{
+                  objectFit: "contain",
+                  height: "200px",
+                }}
               />
               <CardContent
                 sx={{
@@ -42,7 +46,7 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
                     fontSize: "15px",
                   }}
                 >
-                  {book.genre}
+                  {book.genre.join(", ")}
                 </Typography>
                 <Typography variant="h6" color="text.primary">
                   {book.title}
