@@ -1,36 +1,28 @@
 import React, { useState } from "react";
-import SearchForm from "./SearchForm";
+import SearchForm from "../SearchForm";
 import { Link } from "react-router-dom";
 import { Container, Box, Typography } from "@mui/material";
-import { Book } from "../services/types";
+import { Book } from "../../services/types";
 interface HeaderProps {
   books: Book[];
   setBooks: React.Dispatch<React.SetStateAction<Book[]>>;
-  handleSearch: (query: string) => void;
+  handleSearch: (
+    query: string,
+    category: string,
+    sort: string
+  ) => Promise<void>;
 }
 const Header: React.FC<HeaderProps> = ({ books, setBooks, handleSearch }) => {
-  // const [books, setBooks] = useState<Book[]>([]);
-  // const [query, setQuery] = useState("");
-
-  // const handleSearch = () => {
-  //   console.log(`Search query: ${query}`);
-
-  //   const filteredBooks = books.filter((book) =>
-  //     book.title.toLowerCase().includes(query.toLowerCase())
-  //   );
-
-  //   setBooks(filteredBooks);
-  // };
-
   return (
     <Container
-      maxWidth="xl"
+      maxWidth={false}
       sx={{
         backgroundColor: "#ededed",
         boxShadow: 2,
         py: 2,
         mb: 4,
         textAlign: "center",
+        width: "100%",
       }}
     >
       <Box sx={{ mb: 3, mt: 2 }}>

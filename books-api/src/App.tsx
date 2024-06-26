@@ -7,79 +7,52 @@ import Header from "./components/Header";
 import BookCard from "./components/BookCard";
 import { Book } from "./services/types";
 import DetailsBook from "./components/DetailsBook";
+import { Typography } from "@mui/material";
+import { searchBooks } from "./services/api";
 
 function App() {
-  const initialBooks = [
-    {
-      id: "1",
-      title: "Book Title 1",
-      genre: ["Fiction"],
-      authors: ["Author 1", "Author 2"],
-      image: photo,
-      description: "sssssssssssssssssssssss",
-      date: "2023-01-01",
-    },
-    {
-      id: "2",
-      title: "Book Title 2",
-      genre: ["Fantasy"],
-      authors: ["Author 3"],
-      image: photo,
-      description: "sssssssssssssssssssssss",
-      date: "2022-01-01",
-    },
-    {
-      id: "3",
-      title: "Book Title 3",
-      genre: ["Science", "Fiction"],
-      authors: ["Author 4", "Auth4"],
-      image: photo2,
-      description: "sssssssssssssssssssssss",
-      date: "2023-01-01",
-    },
-    {
-      id: "4",
-      title: "Book Title 2",
-      genre: ["Fantasy"],
-      authors: ["Author 3"],
-      image: "/path/to/image2.jpg",
-      description: "sssssssssssssssssssssss",
-      date: "2021-01-01",
-    },
-    {
-      id: "5",
-      title: "Book Title 3",
-      genre: ["Science Fiction"],
-      authors: ["Author 4"],
-      image: "/path/to/image3.jpg",
-      description: "sssssssssssssssssssssss",
-      date: "2021-01-01",
-    },
-  ];
+  const initialBooks: Book[] = [];
   const [books, setBooks] = useState<Book[]>(initialBooks);
+  const [results, setResults] = useState<number>(0);
 
-  const handleSearch = (query: string) => {
+  const handleSearch = async (
+    query: string,
+    category: string,
+    sort: string
+  ) => {
     console.log(`Search query: ${query}`);
 
     if (query.trim() === "") {
       setBooks(initialBooks);
     } else {
-      const filteredBooks = books.filter((book) =>
-        book.title.toLowerCase().includes(query.toLowerCase())
-      );
-
-      setBooks(filteredBooks);
+      try {
+        const response = await searchBooks(query, category, sort);
+        console.log("------");
+        console.log(response);
+        setBooks(response);
+        setResults(response.length);
+      } catch (error) {
+        console.error("Error fetching books: ", error);
+      }
     }
   };
   return (
     <div className="App">
       <Header books={books} setBooks={setBooks} handleSearch={handleSearch} />
+      <Typography variant="h6" sx={{ marginBottom: "20px" }}>
+        {`Found ${results} results`}{" "}
+      </Typography>
       <Routes>
         <Route path="/" element={<BookCard book={books} />} />
-        <Route path="/book/:id" element={<DetailsBook books={books} />} />
+        {books.map((book) => (
+          <Route
+            key={book.id}
+            path={`/book/${book.id}`}
+            element={<DetailsBook book={book} />}
+          />
+        ))}
+        {/* <Route path="/book/:id" element={<DetailsBook book={books} />} /> */}
       </Routes>
-      {/* <BookCard book={books} /> */}
-      {/* <DetailsBook book={books[2]}></DetailsBook> */}
     </div>
   );
 }

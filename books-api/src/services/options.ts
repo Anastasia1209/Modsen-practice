@@ -1,7 +1,7 @@
 import { SelectOption } from "./types";
 
 export const CATEGORY_SELECT_OPTIONS: SelectOption[] = [
-  { name: "All", value: "" },
+  { name: "All", value: "All" },
   { name: "Art", value: "Art" },
   { name: "Biography", value: "Biography" },
   { name: "Computers", value: "Computers" },

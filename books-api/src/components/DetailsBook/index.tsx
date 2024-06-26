@@ -7,17 +7,17 @@ import {
   CardContent,
   CardMedia,
 } from "@mui/material";
-import { Book } from "../services/types";
+import { Book } from "../../services/types";
 import { useParams } from "react-router-dom";
 
 interface DetailsBookProps {
-  books: Book[];
+  book: Book;
 }
 
-const DetailsBook: React.FC<DetailsBookProps> = ({ books }) => {
+const DetailsBook: React.FC<DetailsBookProps> = ({ book }) => {
   const { id } = useParams<{ id: string }>();
-  const book = books.find((book: Book) => book.id === id);
-  if (!book) {
+  // const book = books.find((book: Book) => book.id === id);
+  if (!book || book.id !== id) {
     return <Typography variant="h5">Book not found</Typography>;
   }
   return (
