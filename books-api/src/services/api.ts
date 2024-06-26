@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const API_KEY = "AIzaSyAjB7Be0EgzUcY2Nsz-nTsoLCw1eXlWXXU";
+const apiKey = process.env.REACT_APP_API_KEY;
 const BASE_URL = "https://www.googleapis.com/books/v1";
-
 export const searchBooks = async (
   query: string,
   category: string,
@@ -13,7 +12,7 @@ export const searchBooks = async (
     const response = await axios.get(`${BASE_URL}/volumes`, {
       params: {
         q: query,
-        key: API_KEY,
+        key: apiKey,
         subject: category,
         orderBy: sort.toLowerCase(),
         maxResults: maxResults,
@@ -31,7 +30,7 @@ export const getBookById = async (id: string) => {
   try {
     const response = await axios.get(`${BASE_URL}/volumes/${id}`, {
       params: {
-        key: API_KEY,
+        key: apiKey,
       },
     });
 
