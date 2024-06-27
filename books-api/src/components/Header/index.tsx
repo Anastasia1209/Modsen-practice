@@ -34,7 +34,6 @@ const Header: React.FC<HeaderProps> = ({ books, setBooks, handleSearch }) => {
           Search For Books
         </Typography>
       </Box>
-      {/* <SearchForm onSearch={() => {}} />{" "} */}
       <SearchForm onSearch={handleSearch} />
     </Container>
   );

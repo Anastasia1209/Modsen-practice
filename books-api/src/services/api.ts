@@ -19,10 +19,23 @@ export const searchBooks = async (
       },
     });
     console.log(response.data.items);
-    return response.data.items;
+    const totalItems = response.data.totalItems;
+    const books = response.data.items.map((item: any) => ({
+      id: item.id,
+      title: item.volumeInfo.title,
+      genre: item.volumeInfo.categories || [],
+      authors: item.volumeInfo.authors || [],
+      image: item.volumeInfo.imageLinks
+        ? item.volumeInfo.imageLinks.thumbnail
+        : "",
+      description: item.volumeInfo.description || "",
+      date: item.volumeInfo.publishedDate || "",
+    }));
+
+    return { books, totalItems };
   } catch (error) {
     console.error("Error fetching books:", error);
-    return [];
+    return { books: [], totalItems: 0 };
   }
 };
 
@@ -34,9 +47,26 @@ export const getBookById = async (id: string) => {
       },
     });
 
-    return response.data;
+    const item = response.data;
+    return {
+      id: item.id,
+      title: item.volumeInfo.title,
+      genre: item.volumeInfo.categories || [],
+      authors: item.volumeInfo.authors || [],
+      image: item.volumeInfo.imageLinks
+        ? item.volumeInfo.imageLinks.thumbnail
+        : "",
+      description: item.volumeInfo.description || "",
+      date: item.volumeInfo.publishedDate || "",
+    };
   } catch (error) {
     console.error("Error fetching book:", error);
     return null;
   }
+};
+
+export const formatText = (textTag: string) => {
+  const parser = new DOMParser();
+  const text = parser.parseFromString(textTag, "text/html");
+  return text.body.innerHTML;
 };

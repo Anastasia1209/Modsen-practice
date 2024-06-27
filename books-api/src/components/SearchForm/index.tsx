@@ -7,7 +7,6 @@ import {
   FormControl,
   InputLabel,
   Box,
-  Typography,
 } from "@mui/material";
 import {
   CATEGORY_SELECT_OPTIONS,

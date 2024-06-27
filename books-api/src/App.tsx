@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import photo from "./assets/photo.png";
-import photo2 from "./assets/photo2.png";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import BookCard from "./components/BookCard";
@@ -13,7 +17,7 @@ import { searchBooks } from "./services/api";
 function App() {
   const initialBooks: Book[] = [];
   const [books, setBooks] = useState<Book[]>(initialBooks);
-  const [results, setResults] = useState<number>(0);
+  const [totalItems, setTotalItems] = useState<number>(0);
 
   const handleSearch = async (
     query: string,
@@ -24,34 +28,33 @@ function App() {
 
     if (query.trim() === "") {
       setBooks(initialBooks);
+      setTotalItems(0);
     } else {
       try {
-        const response = await searchBooks(query, category, sort);
+        const { books: respBooks, totalItems: respTotalItems } =
+          await searchBooks(query, category, sort);
         console.log("------");
-        console.log(response);
-        setBooks(response);
-        setResults(response.length);
+        console.log(respBooks);
+        setBooks(respBooks);
+        setTotalItems(respTotalItems);
       } catch (error) {
         console.error("Error fetching books: ", error);
       }
     }
   };
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
   return (
     <div className="App">
       <Header books={books} setBooks={setBooks} handleSearch={handleSearch} />
-      <Typography variant="h6" sx={{ marginBottom: "20px" }}>
-        {`Found ${results} results`}{" "}
-      </Typography>
+      {isHomePage && (
+        <Typography variant="h6" sx={{ marginBottom: "20px" }}>
+          {`Found ${totalItems} results`}
+        </Typography>
+      )}{" "}
       <Routes>
         <Route path="/" element={<BookCard book={books} />} />
-        {books.map((book) => (
-          <Route
-            key={book.id}
-            path={`/book/${book.id}`}
-            element={<DetailsBook book={book} />}
-          />
-        ))}
-        {/* <Route path="/book/:id" element={<DetailsBook book={books} />} /> */}
+        <Route path="/book/:id" element={<DetailsBook />} />
       </Routes>
     </div>
   );

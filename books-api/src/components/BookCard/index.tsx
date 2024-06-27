@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardMedia, Typography, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
-
 import { Book } from "../../services/types";
 
 interface BookCardProps {
@@ -31,6 +30,8 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
                   sx={{
                     objectFit: "contain",
                     height: "200px",
+                    margin: "20px 0",
+                    filter: "drop-shadow(10px 10px 10px #404040)",
                   }}
                 />
                 <CardContent
@@ -45,14 +46,23 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
                     sx={{
                       color: "#b8b8b8",
                       fontSize: "15px",
+                      textDecoration: "underline",
                     }}
                   >
                     {book.genre && book.genre.join(", ")}
                   </Typography>
-                  <Typography variant="h6" color="text.primary">
+                  <Typography
+                    variant="h6"
+                    color="text.primary"
+                    sx={{ lineHeight: 1.2 }}
+                  >
                     {book.title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ marginTop: "10px" }}
+                  >
                     {book.authors && book.authors.join(", ")}
                   </Typography>
                 </CardContent>

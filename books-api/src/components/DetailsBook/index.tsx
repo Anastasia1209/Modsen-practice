@@ -1,25 +1,33 @@
-import React from "react";
-import {
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
-} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Typography, Grid, Card, CardMedia } from "@mui/material";
 import { Book } from "../../services/types";
 import { useParams } from "react-router-dom";
+import { getBookById, formatText } from "../../services/api";
 
-interface DetailsBookProps {
-  book: Book;
-}
+// interface DetailsBookProps {
+//   book: Book;
+// }
 
-const DetailsBook: React.FC<DetailsBookProps> = ({ book }) => {
+const DetailsBook: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  // const book = books.find((book: Book) => book.id === id);
+  const [book, setBook] = useState<Book | null>(null);
+
+  useEffect(() => {
+    const fetchBook = async () => {
+      if (id) {
+        const fetchedBook = await getBookById(id);
+        setBook(fetchedBook);
+      }
+    };
+    fetchBook();
+  }, [id]);
+
   if (!book || book.id !== id) {
     return <Typography variant="h5">Book not found</Typography>;
   }
+
+  const formatDescr = formatText(book.description);
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sm={5}>
@@ -28,12 +36,14 @@ const DetailsBook: React.FC<DetailsBookProps> = ({ book }) => {
         >
           <CardMedia
             component="img"
-            height="500"
+            height="400"
             image={book.image}
-            alt="Book Cover"
+            alt="Book Image"
             sx={{
               objectFit: "contain",
-              height: "500px",
+              height: "400px",
+              margin: "40px 0",
+              filter: "drop-shadow(10px 10px 10px #404040)",
             }}
           />
         </Card>
@@ -48,7 +58,11 @@ const DetailsBook: React.FC<DetailsBookProps> = ({ book }) => {
             padding: "20px",
           }}
         >
-          <Typography variant="subtitle1" gutterBottom>
+          <Typography
+            variant="subtitle1"
+            gutterBottom
+            sx={{ color: "#686666" }}
+          >
             {book.genre.join(", ")}
           </Typography>
           <Typography
@@ -61,12 +75,12 @@ const DetailsBook: React.FC<DetailsBookProps> = ({ book }) => {
           <Typography
             variant="subtitle1"
             gutterBottom
-            sx={{ color: "#a1a1a1" }}
+            sx={{ color: "#a1a1a1", textDecoration: "underline" }}
           >
             {book.authors.join(", ")}
           </Typography>
           <Typography variant="body1" sx={{ mt: 2 }}>
-            {book.description}
+            <div dangerouslySetInnerHTML={{ __html: formatDescr }}></div>
           </Typography>
         </Box>
       </Grid>
