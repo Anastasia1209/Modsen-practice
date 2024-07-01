@@ -2,21 +2,42 @@ import axios from "axios";
 
 const apiKey = process.env.REACT_APP_API_KEY;
 const BASE_URL = "https://www.googleapis.com/books/v1";
+
 export const searchBooks = async (
   query: string,
   category: string,
   sort: string,
+  startIndex: number = 0,
   maxResults: number = 30
 ) => {
   try {
+    const params: { [key: string]: any } = {
+      q: query || "",
+      key: apiKey,
+      startIndex: startIndex,
+      maxResults: maxResults,
+    };
+
+    if (category && category !== "all") {
+      // params.subject = category;
+      params.q += `+subject:${category}`;
+    }
+    if (sort) {
+      params.orderBy = sort.toLowerCase();
+    }
+
+    console.log("API request params: ", params);
+
     const response = await axios.get(`${BASE_URL}/volumes`, {
-      params: {
-        q: query,
-        key: apiKey,
-        subject: category,
-        orderBy: sort.toLowerCase(),
-        maxResults: maxResults,
-      },
+      params,
+      // params: {
+      //   q: query,
+      //   key: apiKey,
+      //   subject: category,
+      //   orderBy: sort.toLowerCase(),
+      //   startIndex: startIndex,
+      //   maxResults: maxResults,
+      // },
     });
     console.log(response.data.items);
     const totalItems = response.data.totalItems;

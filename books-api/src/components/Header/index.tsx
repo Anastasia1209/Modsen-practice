@@ -3,6 +3,7 @@ import SearchForm from "../SearchForm";
 import { Link } from "react-router-dom";
 import { Container, Box, Typography } from "@mui/material";
 import { Book } from "../../services/types";
+
 interface HeaderProps {
   books: Book[];
   setBooks: React.Dispatch<React.SetStateAction<Book[]>>;
@@ -17,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({ books, setBooks, handleSearch }) => {
     <Container
       maxWidth={false}
       sx={{
-        backgroundColor: "#ededed",
+        backgroundColor: "#eae8e8",
         boxShadow: 2,
         py: 2,
         mb: 4,
