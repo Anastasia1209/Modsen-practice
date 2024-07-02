@@ -1,7 +1,8 @@
 import "./App.css";
-import Header from "./components/Header";
-import AddTodo from "./components/AddTodo";
-import TodoList from "./components/TodoList";
+import AddTodo from "./components/TodoList/AddTodo";
+import TodoList from "./components/TodoList/TodoList";
+import GetImage from "./components/ImageAPI/GetImage";
+import ToggleButton from "./components/ToggleButton/ToggleButton";
 import { useState } from "react";
 
 function App() {
@@ -22,9 +23,17 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <label className="label">TodoList</label>
+
       <AddTodo todo={todo} setTodo={setTodo} />
       <TodoList todo={todo} setTodo={setTodo} />
+
+      <label className="label">ImageAPI</label>
+
+      <GetImage />
+
+      <label className="label">ToggleButton</label>
+      <ToggleButton />
     </div>
   );
 }
