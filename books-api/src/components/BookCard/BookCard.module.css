@@ -1,0 +1,31 @@
+.card {
+  max-width: 345px;
+  background-color: #f7f7f7;
+  box-shadow: 0;
+  margin: 0 20px;
+}
+
+.cardImage.MuiCardMedia-root {
+  object-fit: contain;
+  height: 200px;
+  margin: 20px 0;
+  filter: drop-shadow(10px 10px 10px #404040);
+}
+
+.genre {
+  color: #b8b8b8;
+  font-size: 10px;
+  text-decoration: underline;
+}
+
+.title {
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.authors {
+  margin-top: 10px;
+}
+.cardContent {
+  text-align: left;
+}

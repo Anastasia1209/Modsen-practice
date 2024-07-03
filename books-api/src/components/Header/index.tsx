@@ -1,18 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import SearchForm from "../SearchForm";
-import { Link } from "react-router-dom";
 import { Container, Box, Typography } from "@mui/material";
-import { Book } from "../../services/types";
+import { Book, HeaderProps } from "../../services/types";
 
-interface HeaderProps {
-  books: Book[];
-  setBooks: React.Dispatch<React.SetStateAction<Book[]>>;
-  handleSearch: (
-    query: string,
-    category: string,
-    sort: string
-  ) => Promise<void>;
-}
 const Header: React.FC<HeaderProps> = ({ books, setBooks, handleSearch }) => {
   return (
     <Container

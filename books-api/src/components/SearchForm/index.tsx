@@ -13,15 +13,12 @@ import {
   SORT_SELECT_OPTIONS,
 } from "../../services/options";
 import { SelectOption } from "../../services/types";
-
-interface SearchFormProps {
-  onSearch: (query: string, category: string, sort: string) => void;
-}
+import { SearchFormProps } from "../../services/types";
 
 const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
-  const [query, setQuery] = useState<string>("");
-  const [category, setCategory] = useState<string>("all");
-  const [sort, setSort] = useState<string>("relevance");
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("all");
+  const [sort, setSort] = useState("relevance");
 
   const handleSearch = () => {
     onSearch(query, category, sort);

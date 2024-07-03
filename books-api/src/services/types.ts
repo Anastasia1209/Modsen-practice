@@ -12,3 +12,21 @@ export interface Book {
   description: string;
   date: string;
 }
+
+export interface BookCardProps {
+  book: Book[];
+}
+
+export interface HeaderProps {
+  books: Book[];
+  setBooks: React.Dispatch<React.SetStateAction<Book[]>>;
+  handleSearch: (
+    query: string,
+    category: string,
+    sort: string
+  ) => Promise<void>;
+}
+
+export interface SearchFormProps {
+  onSearch: (query: string, category: string, sort: string) => void;
+}

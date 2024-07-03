@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-align: left;
+  padding: 20px;
+}
+
+.imageCard {
+  max-width: 99%;
+  background-color: #f7f7f7;
+  box-shadow: 0; /* Удаление тени */
+}
+
+.image {
+  object-fit: contain;
+  height: 400px;
+  margin: 40px 0;
+  filter: drop-shadow(10px 10px 10px #404040);
+}
+
+.genre {
+  color: #686666;
+}
+
+.title {
+  padding: 25px 0 0 0;
+}
+
+.authors {
+  color: #a1a1a1;
+  text-decoration: underline;
+}
+
+.description {
+  margin-top: 16px;
+}
