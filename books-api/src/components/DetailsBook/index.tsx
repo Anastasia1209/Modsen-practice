@@ -5,10 +5,6 @@ import { useParams } from "react-router-dom";
 import { getBookById, formatText } from "../../services/api";
 import styles from "./DetailsBook.module.css";
 
-// interface DetailsBookProps {
-//   book: Book;
-// }
-
 const DetailsBook: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [book, setBook] = useState<Book | null>(null);

@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import { Typography, Button } from "@mui/material";
-import Header from "./Header";
-import BookCard from "./BookCard";
+import Header from "../components/Header";
+import BookCard from "../components/BookCard";
+import DetailsBook from "../components/DetailsBook";
 import { Book } from "../services/types";
 import { searchBooks } from "../services/api";
-import "../App.css";
 
 const Main: React.FC = () => {
   const initialBooks: Book[] = [];
@@ -64,6 +70,9 @@ const Main: React.FC = () => {
     }
   };
 
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
   useEffect(() => {
     handleSearch("", "all", "relevance");
   }, []);
@@ -71,11 +80,16 @@ const Main: React.FC = () => {
   return (
     <div className="App">
       <Header books={books} setBooks={setBooks} handleSearch={handleSearch} />
-      <Typography variant="h6" sx={{ marginBottom: "20px" }}>
-        {`Found ${totalItems} results`}
-      </Typography>
-      <BookCard book={books} />
-      {books.length < totalItems && (
+      {isHomePage && (
+        <Typography variant="h6" sx={{ marginBottom: "20px" }}>
+          {`Found ${totalItems} results`}
+        </Typography>
+      )}
+      <Routes>
+        <Route path="/" element={<BookCard books={books} />} />
+        <Route path="/book/:id" element={<DetailsBook />} />
+      </Routes>
+      {isHomePage && books.length < totalItems && (
         <Button
           variant="contained"
           onClick={loadMoreBooks}

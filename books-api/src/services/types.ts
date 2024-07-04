@@ -14,7 +14,7 @@ export interface Book {
 }
 
 export interface BookCardProps {
-  book: Book[];
+  books: Book[];
 }
 
 export interface HeaderProps {
