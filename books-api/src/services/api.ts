@@ -1,4 +1,5 @@
 import axios from "axios";
+import { SearchResult, GoogleBooksResponse } from "./types";
 
 const apiKey = process.env.REACT_APP_API_KEY;
 const BASE_URL = "https://www.googleapis.com/books/v1";
@@ -9,9 +10,9 @@ export const searchBooks = async (
   sort: string,
   startIndex: number = 0,
   maxResults: number = 30
-) => {
+): Promise<SearchResult> => {
   try {
-    const params: { [key: string]: any } = {
+    const params: Record<string, any> = {
       q: query || "",
       key: apiKey,
       startIndex: startIndex,
@@ -19,29 +20,23 @@ export const searchBooks = async (
     };
 
     if (category && category !== "all") {
-      // params.subject = category;
       params.q += `+subject:${category}`;
     }
     if (sort) {
       params.orderBy = sort.toLowerCase();
     }
 
-    console.log("API request params: ", params);
+    //console.log("API request params: ", params);
 
-    const response = await axios.get(`${BASE_URL}/volumes`, {
-      params,
-      // params: {
-      //   q: query,
-      //   key: apiKey,
-      //   subject: category,
-      //   orderBy: sort.toLowerCase(),
-      //   startIndex: startIndex,
-      //   maxResults: maxResults,
-      // },
-    });
+    const response = await axios.get<GoogleBooksResponse>(
+      `${BASE_URL}/volumes`,
+      {
+        params,
+      }
+    );
     console.log(response.data.items);
     const totalItems = response.data.totalItems;
-    const books = response.data.items.map((item: any) => ({
+    const books = response.data.items.map((item) => ({
       id: item.id,
       title: item.volumeInfo.title,
       genre: item.volumeInfo.categories || [],

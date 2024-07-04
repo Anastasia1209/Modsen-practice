@@ -13,6 +13,32 @@ export interface Book {
   date: string;
 }
 
+export interface VolumeInfo {
+  title: string;
+  categories?: string[];
+  authors?: string[];
+  imageLinks?: {
+    thumbnail: string;
+  };
+  description?: string;
+  publishedDate?: string;
+}
+
+export interface GoogleBooksResponse {
+  totalItems: number;
+  items: GoogleBookItem[];
+}
+
+export interface GoogleBookItem {
+  id: string;
+  volumeInfo: VolumeInfo;
+}
+
+export interface SearchResult {
+  books: Book[];
+  totalItems: number;
+}
+
 export interface BookCardProps {
   books: Book[];
 }
