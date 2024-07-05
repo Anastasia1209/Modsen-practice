@@ -9,7 +9,7 @@
 .imageCard {
   max-width: 99%;
   background-color: #f7f7f7;
-  box-shadow: 0; /* Удаление тени */
+  box-shadow: 0;
 }
 
 .image {

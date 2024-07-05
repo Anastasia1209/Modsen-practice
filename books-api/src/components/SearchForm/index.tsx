@@ -13,7 +13,7 @@ import {
   SORT_SELECT_OPTIONS,
 } from "../../services/options";
 import { SelectOption } from "../../services/types";
-import { SearchFormProps } from "../../services/types";
+import { SearchFormProps } from "./types";
 
 const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
   const [query, setQuery] = useState("");

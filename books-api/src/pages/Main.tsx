@@ -27,7 +27,7 @@ const Main: React.FC = () => {
     category: string,
     sort: string
   ) => {
-    console.log(`Search query: ${query}, category: ${category}, sort: ${sort}`);
+    //  console.log(`Search query: ${query}, category: ${category}, sort: ${sort}`);
 
     if (query.trim() === "") {
       setBooks(initialBooks);
@@ -38,8 +38,7 @@ const Main: React.FC = () => {
         const { books: respBooks, totalItems: respTotalItems } =
           await searchBooks(query, category, sort, 0, maxResPage);
 
-        console.log("------");
-        console.log(respBooks);
+        // console.log(respBooks);
 
         setBooks(respBooks);
         setTotalItems(respTotalItems);

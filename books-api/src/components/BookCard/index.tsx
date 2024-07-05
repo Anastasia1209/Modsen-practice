@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardContent, CardMedia, Typography, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
-import { BookCardProps } from "../../services/types";
+import { BookCardProps } from "./types";
 import styles from "./BookCard.module.css";
 
 const BookCard: React.FC<BookCardProps> = ({ books }) => {

@@ -3,13 +3,14 @@ import { SearchResult, GoogleBooksResponse } from "./types";
 
 const apiKey = process.env.REACT_APP_API_KEY;
 const BASE_URL = "https://www.googleapis.com/books/v1";
-
+const START_INDEX = 0;
+const MAX_RESULT = 30;
 export const searchBooks = async (
   query: string,
   category: string,
   sort: string,
-  startIndex: number = 0,
-  maxResults: number = 30
+  startIndex: number = START_INDEX,
+  maxResults: number = MAX_RESULT
 ): Promise<SearchResult> => {
   try {
     const params: Record<string, any> = {
@@ -34,7 +35,7 @@ export const searchBooks = async (
         params,
       }
     );
-    console.log(response.data.items);
+    // console.log(response.data.items);
     const totalItems = response.data.totalItems;
     const books = response.data.items.map((item) => ({
       id: item.id,

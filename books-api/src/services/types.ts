@@ -38,21 +38,3 @@ export interface SearchResult {
   books: Book[];
   totalItems: number;
 }
-
-export interface BookCardProps {
-  books: Book[];
-}
-
-export interface HeaderProps {
-  books: Book[];
-  setBooks: React.Dispatch<React.SetStateAction<Book[]>>;
-  handleSearch: (
-    query: string,
-    category: string,
-    sort: string
-  ) => Promise<void>;
-}
-
-export interface SearchFormProps {
-  onSearch: (query: string, category: string, sort: string) => void;
-}

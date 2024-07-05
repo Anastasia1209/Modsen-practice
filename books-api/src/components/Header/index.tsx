@@ -1,7 +1,7 @@
 import React from "react";
 import SearchForm from "../SearchForm";
 import { Container, Box, Typography } from "@mui/material";
-import { HeaderProps } from "../../services/types";
+import { HeaderProps } from "./types";
 
 const Header: React.FC<HeaderProps> = ({ books, setBooks, handleSearch }) => {
   return (
