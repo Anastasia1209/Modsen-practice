@@ -1,8 +1,8 @@
 import axios from "axios";
-import { SearchResult, GoogleBooksResponse } from "./types";
+import { SearchResult, GoogleBooksResponse } from "../types/types";
+import { BASE_URL } from "../constants/urls";
 
 const apiKey = process.env.REACT_APP_API_KEY;
-const BASE_URL = "https://www.googleapis.com/books/v1";
 const START_INDEX = 0;
 const MAX_RESULT = 30;
 export const searchBooks = async (

@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import {
-  TextField,
+  Box,
   Button,
-  Select,
-  MenuItem,
   FormControl,
   InputLabel,
-  Box,
+  MenuItem,
+  Select,
+  TextField,
 } from "@mui/material";
 import {
   CATEGORY_SELECT_OPTIONS,
   SORT_SELECT_OPTIONS,
-} from "../../services/options";
-import { SelectOption } from "../../services/types";
+} from "../../constants/options";
 import { SearchFormProps } from "./types";
+import { SelectOption } from "../../types/types";
 
 const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
   const [query, setQuery] = useState("");

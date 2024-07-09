@@ -1,4 +1,4 @@
-import { Book } from "../../services/types";
+import { Book } from "../../types/types";
 export interface BookCardProps {
   books: Book[];
 }

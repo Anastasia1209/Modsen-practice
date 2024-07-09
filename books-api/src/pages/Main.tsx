@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
-import { Typography, Button } from "@mui/material";
+import React, { useState } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { Button, Typography } from "@mui/material";
 import Header from "../components/Header";
 import BookCard from "../components/BookCard";
 import DetailsBook from "../components/DetailsBook";
-import { Book } from "../services/types";
+import { Book } from "../types/types";
 import { searchBooks } from "../services/api";
 
 const Main: React.FC = () => {
@@ -71,10 +66,6 @@ const Main: React.FC = () => {
 
   const location = useLocation();
   const isHomePage = location.pathname === "/";
-
-  useEffect(() => {
-    handleSearch("", "all", "relevance");
-  }, []);
 
   return (
     <div className="App">

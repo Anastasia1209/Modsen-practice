@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Grid, Card, CardMedia } from "@mui/material";
-import { Book } from "../../services/types";
+import { Box, Card, CardMedia, Grid, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { getBookById, formatText } from "../../services/api";
-import styles from "./DetailsBook.module.css";
+import { Book } from "../../types/types";
+import { formatText, getBookById } from "../../services/api";
 
 const DetailsBook: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -30,14 +29,12 @@ const DetailsBook: React.FC = () => {
       <Grid item xs={12} sm={5}>
         <Card
           sx={{ maxWidth: "99%", backgroundColor: "#f7f7f7", boxShadow: 0 }}
-          // className={styles.cardImage}
         >
           <CardMedia
             component="img"
             height="400"
             image={book.image}
             alt="Book Image"
-            // className={styles.image}
             sx={{
               objectFit: "contain",
               height: "400px",
@@ -49,7 +46,6 @@ const DetailsBook: React.FC = () => {
       </Grid>
       <Grid item xs={12} sm={7}>
         <Box
-          // className={styles.container}
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -61,7 +57,6 @@ const DetailsBook: React.FC = () => {
           <Typography
             variant="subtitle1"
             gutterBottom
-            // className={styles.genre}
             sx={{ color: "#686666" }}
           >
             {book.genre.join(", ")}
@@ -69,7 +64,6 @@ const DetailsBook: React.FC = () => {
           <Typography
             variant="h4"
             gutterBottom
-            // className={styles.title}
             sx={{ padding: " 25px 0 0 0 " }}
           >
             {book.title}
@@ -77,7 +71,6 @@ const DetailsBook: React.FC = () => {
           <Typography
             variant="subtitle1"
             gutterBottom
-            //className={styles.authors}
             sx={{ color: "#a1a1a1", textDecoration: "underline" }}
           >
             {book.authors.join(", ")}

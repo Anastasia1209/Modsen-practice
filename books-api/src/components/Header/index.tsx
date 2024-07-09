@@ -1,6 +1,6 @@
 import React from "react";
+import { Box, Container, Typography } from "@mui/material";
 import SearchForm from "../SearchForm";
-import { Container, Box, Typography } from "@mui/material";
 import { HeaderProps } from "./types";
 
 const Header: React.FC<HeaderProps> = ({ books, setBooks, handleSearch }) => {

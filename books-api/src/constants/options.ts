@@ -1,4 +1,4 @@
-import { SelectOption } from "./types";
+import { SelectOption } from "../types/types";
 
 export const CATEGORY_SELECT_OPTIONS: SelectOption[] = [
   { name: "All", value: "All" },
