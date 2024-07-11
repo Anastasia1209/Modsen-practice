@@ -1,3 +1,6 @@
 export interface SearchFormProps {
-  onSearch: (query: string, category: string, sort: string) => void;
+  onSearch: () => Promise<void>;
+  onParamsChange: (
+    newSearchParams: Partial<{ query: string; category: string; sort: string }>
+  ) => void;
 }

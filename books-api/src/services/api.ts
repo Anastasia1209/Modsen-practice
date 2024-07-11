@@ -35,8 +35,9 @@ export const searchBooks = async (
         params,
       }
     );
-    // console.log(response.data.items);
+    //console.log(response.data.items);
     const totalItems = response.data.totalItems;
+    //const items = response.data.items || [];
     const books = response.data.items.map((item) => ({
       id: item.id,
       title: item.volumeInfo.title,

@@ -11,6 +11,6 @@ export const CATEGORY_SELECT_OPTIONS: SelectOption[] = [
 ];
 
 export const SORT_SELECT_OPTIONS: SelectOption[] = [
-  { name: "Relevance", value: "Relevance" },
-  { name: "Newest", value: "Newest" },
+  { name: "Relevance", value: "relevance" },
+  { name: "Newest", value: "newest" },
 ];

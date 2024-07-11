@@ -3,7 +3,10 @@ import { Box, Container, Typography } from "@mui/material";
 import SearchForm from "../SearchForm";
 import { HeaderProps } from "./types";
 
-const Header: React.FC<HeaderProps> = ({ books, setBooks, handleSearch }) => {
+const Header: React.FC<HeaderProps> = ({
+  handleSearch,
+  handleSearchParamsChange,
+}) => {
   return (
     <Container
       maxWidth={false}
@@ -25,7 +28,10 @@ const Header: React.FC<HeaderProps> = ({ books, setBooks, handleSearch }) => {
           Search For Books
         </Typography>
       </Box>
-      <SearchForm onSearch={handleSearch} />
+      <SearchForm
+        onSearch={handleSearch}
+        onParamsChange={handleSearchParamsChange}
+      />
     </Container>
   );
 };

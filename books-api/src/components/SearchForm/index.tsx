@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -6,6 +6,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   TextField,
 } from "@mui/material";
 import {
@@ -15,13 +16,20 @@ import {
 import { SearchFormProps } from "./types";
 import { SelectOption } from "../../types/types";
 
-const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
+const SearchForm: React.FC<SearchFormProps> = ({
+  onSearch,
+  onParamsChange,
+}) => {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
   const [sort, setSort] = useState("relevance");
 
+  useEffect(() => {
+    onParamsChange({ query, category, sort });
+  }, [query, category, sort, onParamsChange]);
+
   const handleSearch = () => {
-    onSearch(query, category, sort);
+    onSearch();
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -30,13 +38,25 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
     }
   };
 
+  const handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
+
+  const handleChangeCategory = (event: SelectChangeEvent<string>) => {
+    setCategory(event.target.value);
+  };
+
+  const handleChangeSort = (event: SelectChangeEvent<string>) => {
+    setSort(event.target.value);
+  };
+
   return (
     <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
       <Box display="flex" alignItems="center" gap={2} justifyContent={"center"}>
         <TextField
           variant="outlined"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={handleChangeQuery}
           onKeyPress={handleKeyPress}
           placeholder="Search"
           sx={{
@@ -76,7 +96,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
             labelId="category-label"
             id="category-select"
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={handleChangeCategory}
             label="Categories"
             sx={{ height: "35px" }}
           >
@@ -94,7 +114,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
             labelId="sort-label"
             id="sort-select"
             value={sort}
-            onChange={(e) => setSort(e.target.value)}
+            onChange={handleChangeSort}
             label="Sorting by"
             sx={{ height: "35px" }}
           >
