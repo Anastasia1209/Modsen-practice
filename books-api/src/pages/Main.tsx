@@ -36,8 +36,6 @@ const Main: React.FC = () => {
         const { books: respBooks, totalItems: respTotalItems } =
           await searchBooks(query, category, sort, 0, maxResPage);
 
-        // console.log(respBooks);
-
         setBooks(respBooks);
         setTotalItems(respTotalItems);
         setStartIndex(maxResPage);
